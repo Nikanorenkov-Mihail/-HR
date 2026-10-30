@@ -1,0 +1,12 @@
+.env*
+!.env.example
+connector/.env*
+!connector/.env.example
+data/
+connector-data/
+*.sqlite
+*.sqlite3
+*.db
+__pycache__/
+*.py[cod]
+.venv/

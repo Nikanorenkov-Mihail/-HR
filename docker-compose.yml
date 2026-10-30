@@ -1,0 +1,15 @@
+services:
+  relay:
+    build: .
+    container_name: hr-telegram-relay
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      RELAY_DATABASE_PATH: /app/data/relay.sqlite3
+      RELAY_API_HOST: 0.0.0.0
+      RELAY_API_PORT: 8080
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./data:/app/data
