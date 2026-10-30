@@ -16,7 +16,7 @@ Connector при запуске и далее по интервалу читае
 ## Первый запуск
 
 1. На VPS скопировать `.env.example` в `.env`, задать токен Telegram, свой числовой Telegram user ID и случайный `RELAY_TOKEN` не короче 32 символов.
-2. Создать DNS A-запись домена на IP VPS, указать домен в `.env` и открыть входящие TCP-порты 80/443 (UDP 443 необязателен). Запустить `docker compose up -d --build`: Caddy автоматически получает HTTPS-сертификат и проксирует запросы во внутреннюю сеть Docker. Порт relay API напрямую наружу не публикуется.
+2. Указать в `DOMAIN` домен с DNS A-записью на VPS или его публичный IPv4. Открыть входящие TCP-порты 80/443 (UDP 443 необязателен). Запустить `docker compose up -d --build`: Caddy автоматически получает HTTPS-сертификат и проксирует запросы во внутреннюю сеть Docker. Для IP используется профиль Let's Encrypt `shortlived`; сертификат действует шесть дней и обновляется Caddy автоматически. Порт relay API напрямую наружу не публикуется.
 3. На ПК установить Python 3.12+, `pip install -r requirements.txt`, скопировать `connector/.env.example` в `connector/.env` и указать публичный HTTPS URL relay и тот же `RELAY_TOKEN`.
 4. Запустить OpenCode `serve` на localhost с Basic Auth из корня проекта, чтобы сервер загрузил правильную конфигурацию и agent с именем `hr-assistant`. Подключить инструкции из `docs/deepseek-agent-instructions.md` и ограниченные инструменты.
 5. Запустить connector из каталога проекта: `python -m connector.worker`. Connector автоматически читает `connector/.env`; supervisor может переопределить значения переменными окружения.
